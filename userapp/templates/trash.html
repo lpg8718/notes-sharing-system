@@ -1,0 +1,94 @@
+{% extends "userhome.html" %} 
+{% block main1 %} {% endblock %} 
+{% block notestable %}
+<!-- Recent Notes Table -->
+<div class="row mt-4">
+  <div class="col-12">
+    <h5>Recent Notes</h5>
+    <div class="card-box">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>User Name</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Date Modified</th>
+            <th>Size</th>
+            <th>Visibility</th>
+            <th>View</th>
+            <th>Delete</th>
+            <th>Restore</th>
+            <th>Download</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in obj %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.username }}</td>
+            <td>📄 {{ i.title }}</td>
+            <td>{{ i.category }}</td>
+            <td>{{ i.upload_at }}</td>
+            <td>{{ i.file_size }}</td>
+            <td>👁️ {{ i.visibility }}</td>
+            <td>
+              <a href="/userhome/view_pdf/?id={{ i.id }}"
+                ><button
+                  style="
+                    background-color: rgb(233, 221, 219);
+                    border-radius: 5px;
+                    font-weight: bold;
+                  "
+                >
+                  View
+                </button></a
+              >
+            </td>
+            <td>
+              <a href="/userhome/delete_trash_pdf/?id={{ i.id }}"
+                ><button
+                  style="
+                    background-color: #f09783;
+                    border-radius: 5px;
+                    font-weight: bold;
+                  "
+                  value="Delete"
+                  onclick="return confirm('Are you sure you want to delete this?')"
+                >
+                  Delete
+                </button></a
+              >
+            </td>
+            <td>
+              <a href="/userhome/restore_pdf/?id={{ i.id }}"
+                ><button
+                  style="
+                    background-color: #f0e583;
+                    border-radius: 5px;
+                    font-weight: bold;
+                  "
+                  onclick="return confirm('Are you sure you want to Restore this?')"
+                >
+                  Restore
+                </button></a
+              >
+            </td>
+            <td>
+              <a
+                href="/userhome/download_pdf/?name={{ i.id }}"
+                style="text-decoration: none"
+                >Download</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <!-- <div class="text-end">
+                <a href="#" class="btn btn-link">View All</a>
+              </div> -->
+    </div>
+  </div>
+</div>
+{% endblock %}

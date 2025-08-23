@@ -1,0 +1,204 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Visitor - Notes Sharing System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+  <link rel="stylesheet" href="{% static 'css/register.css' %}">
+  <style>
+    .hero-section {
+      background: linear-gradient(to right, #2c3e50, #4ca1af);
+      color: white;
+      padding: 100px 0;
+      text-align: center;
+    }
+
+    .info-section {
+      padding: 60px 0;
+    }
+
+    .card-title {
+      font-weight: bold;
+    }
+
+    .review-section {
+      background-color: #f8f9fa;
+      padding: 60px 0;
+    }
+
+    .review {
+      background: white;
+      border-left: 5px solid #0d6efd;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      height: 100%;
+    }
+
+    footer {
+      background-color: #343a40;
+      color: white;
+    }
+
+    .btn-secondary {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  {% block navbar %}
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">NotesShare</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#features">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-outline-light ms-2" href="/login/">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-outline-light ms-2" href="/register/">Register</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  {% endblock %}
+
+  <!-- Hero Section -->
+  {% block hero %}
+  <section class="hero-section">
+    <div class="container">
+      <h1 class="display-4 fw-bold">Welcome to NotesShare</h1>
+      <p class="lead">A platform to share and access academic notes easily and securely.</p>
+      <a href="/login/" class="btn btn-light btn-lg mt-4">Login to Access Notes</a>
+    </div>
+  </section>
+  {% endblock %}
+ {% block main %}
+  {% endblock %}
+  <!-- Features Section -->
+  {% block info %}
+  <section class="info-section" id="features">
+    <div class="container">
+      <h2 class="text-center mb-5">Website Features</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card shadow-sm h-100">
+            <div class="card-body">
+              <h5 class="card-title">Upload Notes</h5>
+              <p class="card-text">Registered users can upload notes in PDF, DOCX formats easily.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card shadow-sm h-100">
+            <div class="card-body">
+              <h5 class="card-title">Download Notes</h5>
+              <p class="card-text">Access quality notes uploaded by peers once you are logged in.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card shadow-sm h-100">
+            <div class="card-body">
+              <h5 class="card-title">Admin Control</h5>
+              <p class="card-text">Admins can manage and moderate uploaded content for quality.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notes Preview Section -->
+  <section class="info-section" id="notes-preview">
+    <div class="container">
+      <h2 class="text-center mb-5">Sample Notes Preview</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">Mathematics - Integration</h5>
+              <p class="card-text">Preview of notes on integration techniques.</p>
+              <a href="/login/" class="btn btn-secondary">Login to Download</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">Physics - Laws of Motion</h5>
+              <p class="card-text">Overview of basic Newton's Laws and applications.</p>
+              <a href="/login/" class="btn btn-secondary">Login to Download</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">Chemistry - Organic Basics</h5>
+              <p class="card-text">Introduction to hydrocarbons and functional groups.</p>
+              <a href="/login/" class="btn btn-secondary">Login to Download</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endblock %}
+
+  <!-- Review Section -->
+  {% block review %}
+  <section class="review-section">
+    <div class="container">
+      <h2 class="text-center mb-5">What Users Say</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="review">
+            <h5>Anjali S.</h5>
+            <p>"NotesShare helped me a lot before my exams. Super helpful and organized notes!"</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="review">
+            <h5>Rahul K.</h5>
+            <p>"Great initiative for students. The upload and download process is simple and fast."</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="review">
+            <h5>Sneha M.</h5>
+            <p>"I found quality notes for every subject. The user interface is very clean and responsive."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endblock %}
+
+  <!-- Footer -->
+  {% block footer %}
+  <footer class="text-center py-4">
+    <div class="container">
+      <p class="mb-0">&copy; 2025 NotesShare. All Rights Reserved.</p>
+    </div>
+  </footer>
+  {% endblock %}
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

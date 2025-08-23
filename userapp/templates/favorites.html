@@ -1,0 +1,116 @@
+{% extends "userhome.html" %} {% block status %} {% endblock %} 
+{% block main1 %}
+<div class="container py-4">
+  <h3 class="mb-2">⭐ My Favorite Notes</h3>
+
+  <div class="card-box">
+    <table class="table table-hover" id="favorites-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>User Name</th>
+          <th>Title</th>
+          <th>Category</th>
+          <th>Date Modified</th>
+          <th>Size</th>
+          <th>Favorite</th>
+          <th>View</th>
+          <th>Download</th>
+          <th>Share</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in obj %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ i.username }}</td>
+          <td>📄 {{ i.title }}</td>
+          <td>{{ i.category }}</td>
+          <td>{{ i.upload_at }}</td>
+          <td>{{ i.file_size }}</td>
+          <!-- <td>👁️ {{ i.visibility }}</td> -->
+          <td>
+            <a href="/userhome/is_favorite1/?id={{ i.id }}">❤️</a>
+          </td>
+          <td>
+            <a href="/userhome/view_pdf/?id={{ i.id }}"
+              ><button
+                style="
+                  background-color: rgb(233, 221, 219);
+                  border-radius: 5px;
+                  font-weight: bold;
+                "
+              >
+                View
+              </button></a
+            >
+          </td>
+          <td>
+            <a
+              href="/userhome/download_pdf/?name={{ i.id }}"
+              style="text-decoration: none"
+              >Download</a
+            >
+          </td>
+
+          <td>
+            <div style="position: relative; display: inline-block">
+              <button
+                onclick="toggleShareMenu('{{ i.id }}')"
+                style="background: none; border: none"
+              >
+                🔗
+              </button>
+
+              <div
+                id="share-menu-{{ i.id }}"
+                class="share-menu"
+                style="
+                  display: none;
+                  position: absolute;
+                  background: white;
+                  border: 1px solid #ccc;
+                  margin-left: -30px;
+                  padding: 8px;
+                  border-radius: 5px;
+                  z-index: 100;
+                "
+              >
+                <a
+                  href="https://api.whatsapp.com/send?text={{ request.build_absolute_uri }}/view_pdf/?id={{ i.id }}"
+                  target="_blank"
+                  >📱 WhatsApp</a
+                ><br />
+                <a
+                  href="mailto:?subject=Check this note&body={{ request.build_absolute_uri }}/view_pdf/?id={{ i.id }}"
+                  target="_blank"
+                  >✉️ Email</a
+                ><br />
+                <a
+                  href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}/view_pdf/?id={{ i.id }}"
+                  target="_blank"
+                  >📘 Facebook</a
+                ><br />
+                <a href="https://www.instagram.com/" target="_blank"
+                  >📸 Instagram</a
+                >
+              </div>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  function removeRow(icon) {
+    const row = icon.closest("tr");
+    row.remove();
+  }
+</script>
+{% endblock %}
+
+{% block notestable %}
+ {% endblock %}

@@ -1,0 +1,32 @@
+body {
+    background-color: #f7f9fb;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .upload-form-container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  .form-label {
+    font-weight: 600;
+  }
+
+  .form-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #007bff;
+  }
+
+  .btn-upload {
+    width: 100%;
+    border-radius: 25px;
+    padding: 10px;
+    font-size: 16px;
+  }

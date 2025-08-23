@@ -1,0 +1,43 @@
+{% extends "userhome.html" %} 
+
+{% block notestable %}
+{% endblock %} 
+{% block main1 %}
+<body class="bg-light">
+
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                {% for i in obj %}
+                <!-- <img src="../static/images/default.png" alt="Profile Picture" class="profile-img mb-3"> -->
+                <h3>{{ i.username }}</h3>
+                <div class="text-start mt-4">
+                
+                <form method="post" action="">
+                    {% csrf_token %}
+                  
+                
+                  
+                    <strong>Full Name   :-</strong> <input type="text" name="name" value="{{ i.name }}">
+                    <p><strong>Username   :-</strong> <input type="text" name="username" value="{{ i.username }}" readonly></p>
+                    <p><strong>Mobile Number   :-</strong> <input type="text" name="mobile" value="{{ i.mobile }}"></p>
+                    <p><strong>Email   :-</strong> <input type="email" name="email" value="{{ i.email }}" readonly></p>
+                    <p><strong>Date of Birth   :-</strong> <input type="date" name="dob" value="{{ i.dob }}"></p>
+                    <p><strong>Address   :-</strong> <input type="text" name="address" value="{{ i.address }}"></p>
+                    <p><strong>Status   :- </strong> Active</p>
+                    
+                    
+                   <input type="submit" value="Update" class="btn btn-outline-primary me-2">
+                    <a href="/userhome/profile/" class="btn btn-outline-danger">Cancel</a>                    
+                  </form>
+                </div>
+                  {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+{% endblock %}

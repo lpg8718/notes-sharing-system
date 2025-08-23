@@ -1,0 +1,199 @@
+{% extends "home.html" %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">NotesShare</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/#features">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-outline-light ms-2" href="/login/">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-outline-light ms-2" href="">Register</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+{% endblock %}
+{% block hero %}
+{% endblock %}
+
+{% block info %}
+{% endblock %}
+
+{% block review %}
+{% endblock %}
+
+{% block main %}
+<!-- Register Form Section -->
+<div class="container register-form-section py-5">
+  <h2 class="text-center mb-4">Create Your Account</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <form method="post" action="" onsubmit="return validateForm()" id="registerForm">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" name="username" id="username" placeholder="Enter a username" onkeyup="validateUsername()">
+              <small class="text-danger" id="usernameError"></small>
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Email Address</label>
+              <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email address" onkeyup="validateEmail()">
+              <small class="text-danger" id="emailError"></small>
+            </div>
+
+            <div class="mb-3">
+              <label for="mobile" class="form-label">Mobile Number</label>
+              <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Enter your Mobile Number" onkeyup="validateMobile()">
+              <small class="text-danger" id="mobileError"></small>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label d-block">Gender</label>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="genderMale" value="male" onkeyup="validateGender()">
+                <label class="form-check-label" for="genderMale">Male</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="female" onkeyup="validateGender()">
+                <label class="form-check-label" for="genderFemale">Female</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="genderOther" value="other" onkeyup="validateGender()">
+                <label class="form-check-label" for="genderOther">Other</label>
+              </div>
+              <br>
+              <small class="text-danger" id="genderError"></small>
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" name="password" id="password" placeholder="Create a password" onkeyup="validatePassword()">
+              <small class="text-danger" id="passwordError"></small>
+            </div>
+
+            <div class="mb-3">
+              <label for="confirmPassword" class="form-label">Confirm Password</label>
+              <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password" onkeyup="validateConfirmPassword()">
+              <small class="text-danger" id="confirmPasswordError"></small>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+          </form>
+
+          <div class="mt-3 text-center">
+            <p>Already have an account? <a href="/login/">Login here</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript for Validation -->
+<script>
+  // Validate username
+  function validateUsername() {
+    const username = document.getElementById("username").value.trim();
+    const usernameError = document.getElementById("usernameError");
+    if (username.length < 3) {
+      usernameError.innerText = "Username must be at least 3 characters.";
+    } else {
+      usernameError.innerText = "";
+    }
+  }
+
+  // Validate email
+  function validateEmail() {
+    const email = document.getElementById("email").value.trim();
+    const emailError = document.getElementById("emailError");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      emailError.innerText = "Please enter a valid email.";
+    } else {
+      emailError.innerText = "";
+    }
+  }
+
+  // Validate mobile number
+  function validateMobile() {
+    const mobile = document.getElementById("mobile").value.trim();
+    const mobileError = document.getElementById("mobileError");
+    const mobileRegex = /^[6-9]\d{9}$/;  // Mobile number starts from 6-9 and must be 10 digits
+    if (!mobileRegex.test(mobile)) {
+      mobileError.innerText = "Enter a valid 10-digit mobile number starting with 6-9.";
+    } else {
+      mobileError.innerText = "";
+    }
+  }
+
+  // Validate gender
+  function validateGender() {
+    const genderError = document.getElementById("genderError");
+    const gender = document.querySelector('input[name="gender"]:checked');
+    if (!gender) {
+      genderError.innerText = "Please select your gender.";
+    } else {
+      genderError.innerText = "";
+    }
+  }
+
+  // Validate password
+  function validatePassword() {
+    const password = document.getElementById("password").value;
+    const passwordError = document.getElementById("passwordError");
+    if (password.length < 6) {
+      passwordError.innerText = "Password must be at least 6 characters.";
+    } else {
+      passwordError.innerText = "";
+    }
+  }
+
+  // Validate confirm password
+  function validateConfirmPassword() {
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+    const confirmPasswordError = document.getElementById("confirmPasswordError");
+    if (password !== confirmPassword) {
+      confirmPasswordError.innerText = "Passwords do not match.";
+    } else {
+      confirmPasswordError.innerText = "";
+    }
+  }
+
+  // Form validation before submission
+  function validateForm() {
+    validateUsername();
+    validateEmail();
+    validateMobile();
+    validateGender();
+    validatePassword();
+    validateConfirmPassword();
+
+    // Check if there is any error message
+    const errors = document.querySelectorAll(".text-danger");
+    for (let error of errors) {
+      if (error.innerText !== "") {
+        return false;  // Don't submit form if any error
+      }
+    }
+
+    return true;  // Submit form if no errors
+  }
+</script>
+{% endblock %}

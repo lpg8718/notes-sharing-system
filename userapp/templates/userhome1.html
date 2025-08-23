@@ -1,0 +1,325 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes Share Dashboard</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/upload_form.css' %}" />
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #f7f9fb;
+      }
+
+      .sidebar {
+        height: 100vh;
+        background-color: #ffffff;
+        border-right: 1px solid #e0e0e0;
+      }
+
+      .sidebar a {
+        display: block;
+        padding: 12px 20px;
+        color: #333;
+        text-decoration: none;
+        border-left: 3px solid transparent;
+      }
+
+      .sidebar a:hover {
+        background-color: #f0f0f0;
+        border-left: 3px solid #007bff;
+      }
+
+      .topbar {
+        padding: 10px 20px;
+        background-color: #ffffff;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .card-box {
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        height: 479px;
+        overflow: scroll;
+        background-color: #fff;
+      }
+
+      .card-box2 {
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        background-color: #fff;
+      }
+
+      .activity-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 0;
+        border-bottom: 1px solid #eaeaea;
+      }
+
+      .activity-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+      }
+
+      .quick-note {
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      }
+
+      .table td,
+      .table th {
+        vertical-align: middle;
+      }
+
+      /* share */
+
+      .share-menu a {
+        display: block;
+        padding: 4px;
+        color: #333;
+        text-decoration: none;
+      }
+
+      .share-menu a:hover {
+        background-color: #f0f0f0;
+        border-radius: 3px;
+      }
+    </style>
+
+    <script>
+      function toggleShareMenu(id) {
+        const menu = document.getElementById("share-menu-" + id);
+
+        // Hide any other open menus
+        document.querySelectorAll(".share-menu").forEach((m) => {
+          if (m.id !== "share-menu-" + id) m.style.display = "none";
+        });
+
+        // Toggle current menu
+        if (menu.style.display === "none") {
+          menu.style.display = "block";
+        } else {
+          menu.style.display = "none";
+        }
+      }
+
+      // Optional: hide on outside click
+      window.onclick = function (event) {
+        if (!event.target.matches("button")) {
+          document.querySelectorAll(".share-menu").forEach((menu) => {
+            menu.style.display = "none";
+          });
+        }
+      };
+
+
+      // Optional: search functionality
+        function searchNotes() {
+          const input = document.getElementById("searchInput").value.toLowerCase();
+          const tableRows = document.querySelectorAll("table tbody tr");
+      
+          tableRows.forEach(row => {
+            const text = row.innerText.toLowerCase();
+            row.style.display = text.includes(input) ? "" : "none";
+          });
+        }
+      
+        // Optional: live search while typing
+        document.getElementById("searchInput").addEventListener("keyup", searchNotes);
+      
+      
+    </script>
+  </head>
+
+  <body>
+    {% if messages %} {% for message in messages %}
+    <script>
+      alert("{{ message }}");
+    </script>
+    {% endfor %} {% endif %}
+    <div class="d-flex">
+      {% block sidebar %}
+      <!-- Sidebar -->
+      <div class="sidebar p-3">
+        <h5 class="mb-4">📘 Notes Share</h5>
+        <a href="/userhome/">Home</a>
+        <a href="/userhome/profile/">Profile</a>
+        <a href="/userhome/my_notes/">My Notes</a>
+        <a href="/userhome/upload_notes/">Upload Notes</a>
+        <a href="/userhome/favorite/">Favorites</a>
+        <!-- <a href="#">Collections</a> -->
+        <a href="/userhome/trash/">Trash</a>
+        <hr />
+        <!-- <a href="#">Settings</a> -->
+        <a href="/userhome/help/">Help & Support</a>
+        <a href="/userhome/logout1/">Logout</a>
+      </div>
+      {% endblock %}
+
+      <!-- Main Content -->
+      <div class="flex-grow-1">
+        <!-- Topbar -->
+
+        <div class="topbar d-flex justify-content-between align-items-center">
+          <h5 class="m-0">Dashboard</h5>
+          <div class="d-flex align-items-center gap-5">
+            <input
+              type="search"
+              id="searchInput"
+              placeholder="Search notes..."
+              class="form-control form-control-sm"
+              style="width: 200px"
+              onkeyup="searchNotes()"
+            />
+            <span><h3>{{ username }}</h3></span>
+          </div>
+        </div>
+        <!-- Dashboard Content -->
+        <div class="container mt-4">
+          <!-- Stats -->
+
+          {% block main1 %} {% endblock %} {% block notestable %}
+          <!-- Recent Notes Table -->
+          <div class="row mt-4">
+            <div class="col-12">
+              <h5>Recent Notes</h5>
+              <div class="card-box">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>User Name</th>
+                      <th>Title</th>
+                      <th>Category</th>
+                      <th>Date Modified</th>
+                      <th>Size</th>
+                      <th>Favorite</th>
+                      <th>View</th>
+                      <th>Download</th>
+                      <th>Share</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for i in obj %}
+                    <tr>
+                      <td>{{ forloop.counter }}</td>
+                      <td>{{ i.username }}</td>
+                      <td>📄 {{ i.title }}</td>
+                      <td>{{ i.category }}</td>
+                      <td>{{ i.upload_at }}</td>
+                      <td>{{ i.file_size }}</td>
+                      <!-- <td>👁️ {{ i.visibility }}</td> -->
+                      <td>
+                        {% if user in i.favorites.all %}
+                          <!-- Already Favorited -->
+                          <a href="/userhome/is_favorite/?id={{ i.id }}" title="Unfavorite">❤️</a>
+                        {% else %}
+                          <!-- Not yet Favorited -->
+                          <a href="/userhome/is_favorite/?id={{ i.id }}" title="Mark as Favorite">🤍</a>
+                        {% endif %}
+                      </td>
+                      <td>
+                        <a href="/userhome/view_pdf/?id={{ i.id }}"
+                          ><button
+                            style="
+                              background-color: rgb(233, 221, 219);
+                              border-radius: 5px;
+                              font-weight: bold;
+                            "
+                          >
+                            View
+                          </button></a
+                        >
+                      </td>
+                      <td>
+                        <a
+                          href="/userhome/download_pdf/?name={{ i.id }}"
+                          style="text-decoration: none"
+                          >Download</a
+                        >
+                      </td>
+
+                      <td>
+                        <div style="position: relative; display: inline-block">
+                          <button
+                            onclick="toggleShareMenu('{{ i.id }}')"
+                            style="background: none; border: none"
+                          >
+                            🔗
+                          </button>
+
+                          <div
+                            id="share-menu-{{ i.id }}"
+                            class="share-menu"
+                            style="
+                              display: none;
+                              position: absolute;
+                              background: white;
+                              border: 1px solid #ccc;
+                              margin-left: -30px;
+                              padding: 8px;
+                              border-radius: 5px;
+                              z-index: 100;
+                            "
+                          >
+                            <a
+                              href="https://api.whatsapp.com/send?text={{ request.build_absolute_uri }}/view_pdf/?id={{ i.id }}"
+                              target="_blank"
+                              >📱 WhatsApp</a
+                            ><br />
+                            <a
+                              href="mailto:?subject=Check this note&body={{ request.build_absolute_uri }}/view_pdf/?id={{ i.id }}"
+                              target="_blank"
+                              >✉️ Email</a
+                            ><br />
+                            <a
+                              href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}/view_pdf/?id={{ i.id }}"
+                              target="_blank"
+                              >📘 Facebook</a
+                            ><br />
+                            <a href="https://www.instagram.com/" target="_blank"
+                              >📸 Instagram</a
+                            >
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                <!-- <div class="text-end">
+                <a href="#" class="btn btn-link">View All</a>
+              </div> -->
+              </div>
+            </div>
+          </div>
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+    <footer class="bg-dark text-white text-center py-3 mt-0">
+      <div class="container">
+        <p class="mb-0">&copy; 2025 Notes Share. All Rights Reserved.</p>
+      </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

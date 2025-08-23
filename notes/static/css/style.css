@@ -1,0 +1,93 @@
+.hero-section {
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+  }
+  .info-section {
+    padding: 50px 15px;
+  }
+  .card:hover {
+    transform: scale(1.05);
+    transition: 0.3s;
+  }
+  .review-section {
+    background-color: #f8f9fa;
+    padding: 60px 20px;
+  }
+  .review {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  }
+
+
+/* user */
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f7f9fb;
+}
+
+.sidebar {
+  height: 100vh;
+  background-color: #ffffff;
+  border-right: 1px solid #e0e0e0;
+}
+
+.sidebar a {
+  display: block;
+  padding: 12px 20px;
+  color: #333;
+  text-decoration: none;
+  border-left: 3px solid transparent;
+}
+
+.sidebar a:hover {
+  background-color: #f0f0f0;
+  border-left: 3px solid #007bff;
+}
+
+.topbar {
+  padding: 10px 20px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.card-box {
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  padding: 20px;
+  background-color: #fff;
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.activity-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.quick-note {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.table td, .table th {
+  vertical-align: middle;
+}
