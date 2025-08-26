@@ -13,7 +13,7 @@ import os
 # Create your views here.
 def userhome(request):
     username = request.session.get('username')
-    visibility='Public'
+    visibility='public'
     obj=models.uploads.objects.filter(is_active=1,visibility=visibility)
     print("username :",username)
     user = User.objects.get(username=username)
